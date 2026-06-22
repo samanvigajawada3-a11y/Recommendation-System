@@ -8,15 +8,15 @@ const router = express.Router();
 
 const cookieOptions = {
   httpOnly: true,
-  sameSite: "lax",
-  secure: process.env.NODE_ENV === "production",
+  sameSite: "none",
+  secure: true,
   maxAge: 30 * 24 * 60 * 60 * 1000
 };
 
 const clearCookieOptions = {
   httpOnly: true,
-  sameSite: "lax",
-  secure: process.env.NODE_ENV === "production"
+  sameSite: "none",
+  secure: true
 };
 
 const sendSession = (res, user, status = 200) => {
