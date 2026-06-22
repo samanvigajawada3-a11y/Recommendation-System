@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StreamFlix</title>
+    <style>
+      body {
+        margin: 0;
+        background: #050505;
+        color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      .boot-screen {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        text-align: center;
+      }
+
+      .boot-logo {
+        color: #e50914;
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: 0;
+        text-transform: uppercase;
+      }
+
+      .boot-text {
+        margin-top: 16px;
+        color: #bdbdbd;
+      }
+
+      .boot-error {
+        max-width: 760px;
+        margin-top: 18px;
+        overflow: auto;
+        white-space: pre-wrap;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(229, 9, 20, 0.14);
+        padding: 16px;
+        color: #ffd7d7;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root">
+      <main class="boot-screen">
+        <div>
+          <div class="boot-logo">StreamFlix</div>
+          <div class="boot-text">Loading movies...</div>
+        </div>
+      </main>
+    </div>
+    <script>
+      function showBootError(error) {
+        const root = document.getElementById("root");
+        const message = error && (error.stack || error.message || String(error));
+        root.innerHTML =
+          '<main class="boot-screen"><div><div class="boot-logo">StreamFlix</div><div class="boot-text">The app could not start.</div><pre class="boot-error"></pre></div></main>';
+        root.querySelector(".boot-error").textContent = message || "Unknown frontend error";
+      }
+
+      window.addEventListener("error", function (event) {
+        showBootError(event.error || event.message);
+      });
+
+      window.addEventListener("unhandledrejection", function (event) {
+        showBootError(event.reason);
+      });
+    </script>
+    <script type="module">
+      import("/src/main.jsx").catch(showBootError);
+    </script>
+  </body>
+</html>
