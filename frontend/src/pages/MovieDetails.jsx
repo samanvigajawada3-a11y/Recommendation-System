@@ -93,7 +93,7 @@ export default function MovieDetails() {
                   >
                     <Star
                       size={18}
-                      className={rating <= (movie.userRating || 0) ? "fill-netflix text-netflix" : "text-zinc-500"}
+                      className={rating <= (movie.averageRating || 0) ? "fill-netflix text-netflix" : "text-zinc-500"}
                     />
                   </button>
                 ))}
